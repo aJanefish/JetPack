@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase;
 import com.example.room.dao.StudentDao;
 import com.example.room.data.Student;
 
-@Database(entities = {Student.class}, version = 1)
+@Database(entities = {Student.class}, version = 1, exportSchema = true)
 public abstract class MyDataBase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "my_db";

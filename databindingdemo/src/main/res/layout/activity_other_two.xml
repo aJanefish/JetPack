@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -20,6 +21,11 @@
         tools:context=".activity.DataBindingMainActivity">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="---------二级页面---------" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/main_tv_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,17 +37,11 @@
             android:layout_height="wrap_content"
             android:text="@{book.author}" />
 
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/main_tv_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{Utils.getRatingString(1)}" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="exchangeData"
-            android:text="通过DataBinding改变数据" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
