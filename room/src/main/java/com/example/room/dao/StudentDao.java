@@ -1,5 +1,6 @@
 package com.example.room.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -25,6 +26,9 @@ public interface StudentDao {
     @Query("SELECT * FROM student_table")
     List<Student> queryStudentList();
 
+
+    @Query("SELECT * FROM student_table")
+    LiveData<List<Student>> queryStudentListLiveData();
 
     @Query("SELECT * FROM student_table WHERE id = :id")
     Student getStudentById(int id);

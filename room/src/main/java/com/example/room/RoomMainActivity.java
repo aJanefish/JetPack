@@ -1,6 +1,10 @@
 package com.example.room;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,12 +13,14 @@ import android.view.View;
 import com.example.room.data.Student;
 import com.example.room.database.MyDataBase;
 import com.example.room.ui.main.RoomMainFragment;
+import com.example.room.ui.main.StudentViewModel;
 
 import java.util.List;
 
 public class RoomMainActivity extends AppCompatActivity {
 
     private static final String TAG = "zy.RoomMainActivity";
+    private StudentViewModel studentViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,22 @@ public class RoomMainActivity extends AppCompatActivity {
 //                    .replace(R.id.container, RoomMainFragment.newInstance())
 //                    .commitNow();
 //        }
+
+        studentViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T) new StudentViewModel(RoomMainActivity.this.getApplication());
+            }
+        }).get(StudentViewModel.class);
+        studentViewModel.getStudentListLiveData().observe(this, new Observer<List<Student>>() {
+            @Override
+            public void onChanged(List<Student> students) {
+                for (Student student : students) {
+                    Log.d(TAG, "onChanged:" + student);
+                }
+            }
+        });
     }
 
     private void show() {
@@ -42,7 +64,7 @@ public class RoomMainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 MyDataBase myDataBase = MyDataBase.getInstance(RoomMainActivity.this);
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < 5; i++) {
                     myDataBase.studentDao().insertStudent(new Student("ZY", "" + i));
                 }
                 myDataBase.studentDao().insertStudent(new Student("ZY", "28"));
