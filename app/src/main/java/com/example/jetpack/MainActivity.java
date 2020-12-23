@@ -50,4 +50,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity2.class);
         startActivity(intent);
     }
+
+    public void showClass(View view) {
+        ClassLoader loader = MainActivity.class.getClassLoader();
+        while (loader != null) {
+            Log.d("zhangyu",loader.toString());//1
+            loader = loader.getParent();
+        }
+        view.invalidate();
+        view.requestLayout();
+    }
 }
